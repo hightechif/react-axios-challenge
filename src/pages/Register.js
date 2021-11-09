@@ -1,17 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
-const Login = () => {
-    const [ token, setToken ] = useState("");
+const Register = () => {
+    const [ status, setStatus ] = useState({});
     const [ userDTO, setUserDTO ] = useState({
         "username": "",
         "password": ""
     });
-    
-    const login = async (username, password) => {
-        await axios({
+
+    const register = async (username, password) => {
+        axios({
             method: 'post',
-            url: 'http://localhost:5000/api/v1/auth/login',
+            url: 'http://localhost:5000/api/v1/auth/register',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -21,14 +21,14 @@ const Login = () => {
             })
         })
             .then((res) => {
-                console.log(JSON.stringify(res.data));
-                setToken(res.data.token);
+                setStatus(res.data);
             })
             .catch((error) => {
-                console.log(error);
-                setToken("");
-            })
-        
+                setStatus({
+                    "status": "Denied",
+                    "message": "User already registered"
+                })
+            });
     }
 
     const handleChange = (event) => {
@@ -37,34 +37,34 @@ const Login = () => {
     }
 
     const handleSubmit = (event) => {
-        login(userDTO.username, userDTO.password);
+        register(userDTO.username, userDTO.password);
         event.preventDefault();
     }
-        
+
     const mounted = useRef();
     useEffect(() => {
         if (!mounted.current) {
-            // do componentDidMount logic
+            
             mounted.current = true;
         } else {
-            console.log(token)
+            console.log(status);
         }
-    }, [token])
+    }, [status])
 
     return (
         <div>
             <h1>
-                Login Page
+                Register Page
             </h1>
             <form style={{display: "flex", flexDirection: "column"}} onSubmit={(event) => handleSubmit(event)}>
                 <label htmlFor="username">Username</label>
                 <input type="text" id="username" value={userDTO.username} onChange={(event) => handleChange(event)} placeholder="username" />
                 <label htmlFor="password">Password</label>
                 <input type="text" id="password" value={userDTO.password} onChange={(event) => handleChange(event)} placeholder="password" />
-                <button type="submit">Login</button>
+                <button type="submit">Register</button>
             </form>
         </div>
     )
 }
 
-export default Login;
+export default Register;
