@@ -1,69 +1,66 @@
-import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import Form from '../components/Form';
+import  { useNavigate} from 'react-router-dom';
+import { login } from '../store/actions/login';
+
+const StyledDiv = styled.div`
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 0 5%;
+    h1 {
+        margin-bottom: 10px;
+    }
+    .form__container {
+        margin: 0 auto;
+        padding: 20px 30%;
+        box-sizing: border-box;
+    }
+`
 
 const Login = () => {
-    const [ token, setToken ] = useState("");
     const [ userDTO, setUserDTO ] = useState({
         "username": "",
         "password": ""
     });
-    
-    const login = async (username, password) => {
-        await axios({
-            method: 'post',
-            url: 'http://localhost:5000/api/v1/auth/login',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: JSON.stringify({
-                "username": username,
-                "password": password
-            })
-        })
-            .then((res) => {
-                console.log(JSON.stringify(res.data));
-                setToken(res.data.token);
-            })
-            .catch((error) => {
-                console.log(error);
-                setToken("");
-            })
-        
-    }
+    const [ isLoginSuccess, setIsLoginSuccess ] = useState(true);
+    let navigate = useNavigate();
 
     const handleChange = (event) => {
         const { value, id } = event.target;
         setUserDTO(prev => ({...prev, [id]:value}));
     }
 
-    const handleSubmit = (event) => {
-        login(userDTO.username, userDTO.password);
+    const handleSubmit = async (event) => {
         event.preventDefault();
-    }
-        
-    const mounted = useRef();
-    useEffect(() => {
-        if (!mounted.current) {
-            // do componentDidMount logic
-            mounted.current = true;
-        } else {
-            console.log(token)
+        try{
+            const postLogin = await login(userDTO.username, userDTO.password);
+            const { data } = postLogin;
+            localStorage.setItem('ACCESS_TOKEN', data.token);
+            setIsLoginSuccess(true);
+            window.location.reload();
+        } catch(e) {
+            setIsLoginSuccess(false);
         }
-    }, [token])
+    }
+
+    useEffect(() => {
+        const getToken = window.localStorage.getItem("ACCESS_TOKEN") ?? null;
+        if (getToken) {
+            navigate("/");
+        }
+        return () =>{
+            // do componentWillUnmount
+        }
+    })
 
     return (
-        <div>
-            <h1>
-                Login Page
-            </h1>
-            <form style={{display: "flex", flexDirection: "column"}} onSubmit={(event) => handleSubmit(event)}>
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" value={userDTO.username} onChange={(event) => handleChange(event)} placeholder="username" />
-                <label htmlFor="password">Password</label>
-                <input type="text" id="password" value={userDTO.password} onChange={(event) => handleChange(event)} placeholder="password" />
-                <button type="submit">Login</button>
-            </form>
-        </div>
+        <StyledDiv>
+            <div className="form__container">
+                <h1 className="uppercase font-bold text-gray-700">Login Page</h1>
+                <Form biodata={userDTO} handleChange={handleChange} handleSubmit={handleSubmit} isRegistered={true} isLoginSuccess={true && isLoginSuccess} />
+            </div>
+        </StyledDiv>
     )
 }
 

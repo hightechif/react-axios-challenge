@@ -1,69 +1,66 @@
-import { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { useNavigate  } from 'react-router';
+import styled from 'styled-components';
+import Form from '../components/Form';
+import { register } from '../store/actions/register';
+
+const StyledDiv = styled.div`
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 0 5%;
+    h1 {
+        margin-bottom: 10px;
+    }
+    .form__container {
+        margin: 0 auto;
+        padding: 20px 30%;
+        box-sizing: border-box;
+    }
+`
 
 const Register = () => {
-    const [ status, setStatus ] = useState({});
     const [ userDTO, setUserDTO ] = useState({
         "username": "",
         "password": ""
     });
-
-    const register = async (username, password) => {
-        axios({
-            method: 'post',
-            url: 'http://localhost:5000/api/v1/auth/register',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: JSON.stringify({
-                "username": username,
-                "password": password
-            })
-        })
-            .then((res) => {
-                setStatus(res.data);
-            })
-            .catch((error) => {
-                setStatus({
-                    "status": "Denied",
-                    "message": "User already registered"
-                })
-            });
-    }
+    const [ isRegisterSuccess, setIsRegisterSuccess ] = useState(true);
+    const [ isSubmit, setIsSubmit ] = useState(false);
+    let navigate = useNavigate();
 
     const handleChange = (event) => {
         const { value, id } = event.target;
         setUserDTO(prev => ({...prev, [id]:value}));
     }
 
-    const handleSubmit = (event) => {
-        register(userDTO.username, userDTO.password);
+    const handleSubmit = async (event) => {
+        setIsSubmit(true);
         event.preventDefault();
+        try {
+            const postRegister = await register(userDTO.username, userDTO.password);
+            const { data } = postRegister;
+            setIsRegisterSuccess(!!data);
+        } catch (e) {
+            setIsRegisterSuccess(false);
+        }
     }
 
-    const mounted = useRef();
     useEffect(() => {
-        if (!mounted.current) {
-            
-            mounted.current = true;
-        } else {
-            console.log(status);
+        const getToken = window.localStorage.getItem("ACCESS_TOKEN") ?? null;
+        if (getToken) {
+            navigate("/");
         }
-    }, [status])
+        return () =>{
+            // do componentWillUnmount
+        }
+    })
 
     return (
-        <div>
-            <h1>
-                Register Page
-            </h1>
-            <form style={{display: "flex", flexDirection: "column"}} onSubmit={(event) => handleSubmit(event)}>
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" value={userDTO.username} onChange={(event) => handleChange(event)} placeholder="username" />
-                <label htmlFor="password">Password</label>
-                <input type="text" id="password" value={userDTO.password} onChange={(event) => handleChange(event)} placeholder="password" />
-                <button type="submit">Register</button>
-            </form>
-        </div>
+        <StyledDiv>
+            <div className="form__container">
+                <h1 className="uppercase font-bold text-gray-700">Register Page</h1>
+                <Form biodata={userDTO} handleChange={handleChange} handleSubmit={handleSubmit} isRegistered={false} isRegisterSuccess={isRegisterSuccess} isSubmit={isSubmit} />
+            </div>
+        </StyledDiv>
     )
 }
 
