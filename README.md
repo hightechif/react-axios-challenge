@@ -20,7 +20,14 @@ Make sure you have [Node.js](https://nodejs.org/) installed. Project dependencie
 $ npm install
 ```
 
-**3. Run Application**
+**3. Login to NPM account and Install Master-UI**
+
+Make sure to install Elevenia Master-UI
+```
+npm install @elevenia/master-ui
+```
+
+**4. Run Application**
 
 Run app with:
 
