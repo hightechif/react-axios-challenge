@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useNavigate  } from 'react-router';
 import styled from 'styled-components';
 import Form from '../components/Form';
-import  { useNavigate} from 'react-router-dom';
-import { login } from '../store/actions/login';
+import { register } from '../store/actions/register';
 
 const StyledDiv = styled.div`
     margin-top: 50px;
@@ -18,12 +18,13 @@ const StyledDiv = styled.div`
     }
 `
 
-const Login = () => {
+const Register = () => {
     const [ userDTO, setUserDTO ] = useState({
         "username": "",
         "password": ""
     });
-    const [ isLoginSuccess, setIsLoginSuccess ] = useState(true);
+    const [ isRegisterSuccess, setIsRegisterSuccess ] = useState(true);
+    const [ isSubmit, setIsSubmit ] = useState(false);
     let navigate = useNavigate();
 
     const handleChange = (event) => {
@@ -32,15 +33,14 @@ const Login = () => {
     }
 
     const handleSubmit = async (event) => {
+        setIsSubmit(true);
         event.preventDefault();
-        try{
-            const postLogin = await login(userDTO.username, userDTO.password);
-            const { data } = postLogin;
-            localStorage.setItem('ACCESS_TOKEN', data.token);
-            setIsLoginSuccess(true);
-            window.location.reload();
-        } catch(e) {
-            setIsLoginSuccess(false);
+        try {
+            const postRegister = await register(userDTO.username, userDTO.password);
+            const { data } = postRegister;
+            setIsRegisterSuccess(!!data);
+        } catch (e) {
+            setIsRegisterSuccess(false);
         }
     }
 
@@ -57,11 +57,11 @@ const Login = () => {
     return (
         <StyledDiv>
             <div className="form__container">
-                <h1 className="uppercase font-bold text-gray-700">Login Page</h1>
-                <Form biodata={userDTO} handleChange={handleChange} handleSubmit={handleSubmit} isRegistered={true} isLoginSuccess={true && isLoginSuccess} />
+                <h1 className="uppercase font-bold text-gray-700">Register Page</h1>
+                <Form biodata={userDTO} handleChange={handleChange} handleSubmit={handleSubmit} isRegistered={false} isRegisterSuccess={isRegisterSuccess} isSubmit={isSubmit} />
             </div>
         </StyledDiv>
     )
 }
 
-export default Login;
+export default Register;
