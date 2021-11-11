@@ -13,5 +13,5 @@ export const login = async (username, password) => {
             "password": password
         })
     })
-    return service
+    return service;
 }
