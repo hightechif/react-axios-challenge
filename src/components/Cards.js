@@ -17,7 +17,7 @@ const StyledCard = styled.div`
 		transform: scale(1.1);
 	}
 	img {
-		border-radius: 20px;
+		border-radius: 10px;
 	}
 	h3 {
 		font-weight: bolder;
@@ -25,6 +25,19 @@ const StyledCard = styled.div`
 	}
 	p {
 		font-size: 16px;
+	}
+	.rating {
+		background: #222222;
+		color: #EEEEEE;
+		padding: 1px;
+		border: 2px solid darkgreen;
+		border-radius: 50%;
+		width: 25px;
+		height: 25px;
+		font-size: 12px;
+		position: relative;
+		top: 30px;
+		left: 5px;
 	}
 `
 
@@ -35,6 +48,7 @@ const Cards = (props) => {
 			{data.map((film, idx) => {
 				return (
 					<StyledCard key={idx}>
+						<div className="rating">{film.vote_average}</div>
 						<img src={`http://image.tmdb.org/t/p/w200/${film.poster_path}`} alt="poster" />
 						<h3>{film.title}</h3>
 						<p>{film.release_date}</p>

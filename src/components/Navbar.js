@@ -13,11 +13,16 @@ const StyledNavbar = styled.header`
     h1 {
         padding: 15px 30px;
     }
-    .button {
-        margin: 7px 5px 5px 75%;
+    .button_wrapper {
+        margin: 7px 5px;
         display: flex;
         gap: 10px;
-        justify-content: right;
+        position: absolute;
+        right: 5px;
+        .button {
+            background: #FFFFFF;
+            color: #334756;
+        }
     }
 `
 
@@ -44,10 +49,10 @@ const Navbar = () => {
     return (
         <StyledNavbar>
             <Link to="/"><h1>FMovie</h1></Link>
-            <div className="button">
-                {!isLogin && <Button variant="secondary"><Link to="/login">Login</Link></Button>}
-                {!isLogin && <Button variant="secondary"><Link to="/register">Register</Link></Button>}
-                {isLogin && <Button variant="secondary" onClick={logout}>Logout</Button>}
+            <div className="button_wrapper">
+                {!isLogin && <Button className="button"><Link to="/login">Login</Link></Button>}
+                {!isLogin && <Button className="button"><Link to="/register">Register</Link></Button>}
+                {isLogin && <Button className="button" onClick={logout}>Logout</Button>}
             </div>
         </StyledNavbar>
     )

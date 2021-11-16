@@ -17,8 +17,7 @@ export const example = async () => {
     return service;
 }
 
-const getList = async () => {
-    const listID = 1;
+const getList = async (listID) => {
     const service = await axios({
         method: 'get',
         baseURL: 'https://api.themoviedb.org',
