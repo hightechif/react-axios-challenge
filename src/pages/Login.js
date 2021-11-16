@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Form from '../components/Form';
-import  { useNavigate} from 'react-router-dom';
+import  { useNavigate } from 'react-router-dom';
 import { login } from '../store/actions/login';
 
 const StyledDiv = styled.div`
@@ -58,7 +58,7 @@ const Login = () => {
         <StyledDiv>
             <div className="form__container">
                 <h1 className="uppercase font-bold text-gray-700">Login Page</h1>
-                <Form biodata={userDTO} handleChange={handleChange} handleSubmit={handleSubmit} isRegistered={true} isLoginSuccess={true && isLoginSuccess} />
+                <Form biodata={userDTO} handleChange={handleChange} handleSubmit={handleSubmit} isRegistered={true} isLoginSuccess={isLoginSuccess} />
             </div>
         </StyledDiv>
     )
