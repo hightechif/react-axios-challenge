@@ -4,16 +4,16 @@ const API_KEY = process.env.REACT_APP_API_KEY
 
 export const example = async () => {
     const service = await axios({
-        method: 'GET',
-        baseURL: 'https://api.themoviedb.org',
-        url: '/3/movie/550',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        params: {
-            api_key: API_KEY
-        }
-    }) 
+            method: 'GET',
+            baseURL: 'https://api.themoviedb.org',
+            url: '/3/movie/550',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            params: {
+                api_key: API_KEY
+            }
+        })
     return service;
 }
 

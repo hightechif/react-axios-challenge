@@ -11,6 +11,7 @@ const StyledCard = styled.div`
 	padding: 0px;
 	margin: 0px;
 	height: 100%;
+	max-width: 119px;
 	width: calc(100% / 9);
 	border-radius: 20px;
 	&:hover {
