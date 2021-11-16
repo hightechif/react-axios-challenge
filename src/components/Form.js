@@ -2,7 +2,7 @@ import Input from "./Input";
 import { Button } from "@elevenia/master-ui/components/Atom";
 
 const Form = (props) => {
-    const {biodata, handleChange, handleSubmit, isRegistered, isLoginSuccess, isRegisterSuccess, isSubmit} = props;
+    const {biodata, handleChange, handleSubmit, isRegistered, isLoginSuccess, isRegisterSuccess, isSubmit, errorMessage} = props;
 
     return (
         <form onSubmit={async (event) => await handleSubmit(event)} className="w-full max-w-lg">
@@ -20,7 +20,7 @@ const Form = (props) => {
             </div>
             <div className="w-full -mx-3 mb-6 text-center">
                 {isRegistered && !isLoginSuccess && <p className="text-red-600 text-xs italic">Username or password is invalid</p>}
-                {!isRegistered && isSubmit && !isRegisterSuccess && <p className="text-red-600 text-xs italic">Username already exist</p>}
+                {!isRegistered && isSubmit && !isRegisterSuccess && <p className="text-red-600 text-xs italic">{errorMessage}</p>}
                 {!isRegistered && isSubmit && isRegisterSuccess && <p className="text-green-600 text-xs italic">Registration Success</p>}
             </div>
         </form>
