@@ -78,7 +78,6 @@ const Gallery = () => {
     }
 
     const handleSorting = ( type = 'asc' ) => {
-        
         const temp = [...data];
         temp.sort((a, b) => type === 'desc' ? a.vote_average - b.vote_average :  b.vote_average - a.vote_average);
         setData(temp);
