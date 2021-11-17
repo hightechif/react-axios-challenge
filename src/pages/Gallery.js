@@ -8,23 +8,27 @@ import styled from "styled-components";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const StyledGallery = styled.div`
+    .TMDB_Logo {
+        margin: 20px auto;
+        max-width: 720px;
+        min-width: 300px;
+        width: 75%;
+    }
     .sort_by_rating {
+        display: inline-flex;
         width: 100px;
         background: #2BADCC;
-        border-radius: 10px;
-        display: flex;
-        flex-direction: row;
+        border: 2px solid lightgreen;
+        border-radius: 15px;
         justify-content: center;
-        gap: 10px;
-        h1 {
-            padding-top: 7px;
+        padding: 3px 3px;
+        p {
             color: #FFFFFF;
-            font-weight: bolder;
-            font-size: larger;
+            font-size: large;
+            padding-right: 8px;
         }
-        .sort_button {
-            display: flex;
-            flex-direction: column;
+        button {
+            padding-top: 5px;
         }
     }
 `
@@ -33,6 +37,7 @@ const Gallery = () => {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
+    const [asc, setAsc] = useState('desc');
 
     const LoaderComponent = () => {
         return (
@@ -72,17 +77,12 @@ const Gallery = () => {
         setPage(page+1);
     }
 
-
-    const sortingUp = () => {
+    const handleSorting = ( type = 'asc' ) => {
+        
         const temp = [...data];
-        temp.sort((a, b) => b.vote_average - a.vote_average);
+        temp.sort((a, b) => type === 'desc' ? a.vote_average - b.vote_average :  b.vote_average - a.vote_average);
         setData(temp);
-    }
-
-    const sortingDown = () => {
-        const temp = [...data];
-        temp.sort((a, b) => a.vote_average - b.vote_average);
-        setData(temp);
+        setAsc(type==='asc' ? 'desc' : 'asc')
     }
 
     const mounted = useRef();
@@ -96,14 +96,10 @@ const Gallery = () => {
 
     return (
         <StyledGallery>
-            <br />
-            <img src="./images/TMDB/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg" style={{ transform: "scale(0.5)" }} alt="" />
+            <img class="TMDB_Logo" src="./images/TMDB/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg" alt="TMDB" />
             {data.length > 0 && <div className="sort_by_rating">
-                <h1>rating</h1>
-                <div className="sort_button">
-                    <button onClick={sortingUp}><Icon  name="chevron-up" /></button>
-                    <button onClick={sortingDown}><Icon  name="chevron-down" /></button>
-                </div>
+                <p>rating</p>
+                <button type="button" onClick={()=>handleSorting(asc)}><Icon name={asc==='asc' ? 'chevron-up' : 'chevron-down' }/></button>
             </div>}
             <InfiniteScroll
                 dataLength={data.length} //This is important field to render the next data

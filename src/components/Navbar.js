@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 import { Button } from "@elevenia/master-ui/components/Atom";
-import { useEffect } from 'react';
-import axios from 'axios';
 import styled from "styled-components";
 
 const StyledNavbar = styled.header`
@@ -33,18 +31,6 @@ const Navbar = () => {
         window.localStorage.removeItem("ACCESS_TOKEN");
         window.location.reload();
     }
-
-    useEffect(() => {
-        const service = async () => await axios({
-            method: 'get',
-            baseURL: 'https://fadhil-auth.herokuapp.com',
-            url: '/api/v1',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        service(); // API activation
-    })
 
     return (
         <StyledNavbar>

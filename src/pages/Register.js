@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate  } from 'react-router-dom';
 import styled from 'styled-components';
 import Form from '../components/Form';
-import { register } from '../store/actions/register';
+import auth from '../store/actions/auth';
 
 const StyledDiv = styled.div`
     margin-top: 50px;
@@ -43,7 +43,7 @@ const Register = () => {
                 throw(error);
             }
             setErrorMessage("Username already exist");
-            const postRegister = await register(userDTO.username, userDTO.password);
+            const postRegister = await auth.register(userDTO.username, userDTO.password);
             const { data } = postRegister;
             setIsRegisterSuccess(!!data);
         } catch (error) {
@@ -52,6 +52,8 @@ const Register = () => {
     }
 
     useEffect(() => {
+        auth.init();
+        
         const getToken = window.localStorage.getItem("ACCESS_TOKEN") ?? null;
         if (getToken) {
             navigate("/");
