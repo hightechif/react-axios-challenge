@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Form from '../components/Form';
 import  { useNavigate } from 'react-router-dom';
-import { login } from '../store/actions/login';
+import auth from '../store/actions/auth';
 
 const StyledDiv = styled.div`
     margin-top: 50px;
@@ -34,7 +34,7 @@ const Login = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try{
-            const postLogin = await login(userDTO.username, userDTO.password);
+            const postLogin = await auth.login(userDTO.username, userDTO.password);
             const { data } = postLogin;
             localStorage.setItem('ACCESS_TOKEN', data.token);
             setIsLoginSuccess(true);
@@ -45,6 +45,8 @@ const Login = () => {
     }
 
     useEffect(() => {
+        auth.init();
+        
         const getToken = window.localStorage.getItem("ACCESS_TOKEN") ?? null;
         if (getToken) {
             navigate("/");
