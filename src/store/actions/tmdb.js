@@ -17,7 +17,7 @@ export const example = async () => {
     return service;
 }
 
-const getList = async (listID) => {
+const getList = async (listID, page) => {
     const service = await axios({
         method: 'get',
         baseURL: 'https://api.themoviedb.org',
@@ -26,7 +26,7 @@ const getList = async (listID) => {
             'Content-Type': 'application/json;charset=utf-8'
         },
         params: {
-            page: 1,
+            page: page,
             api_key: API_KEY
         }
     })

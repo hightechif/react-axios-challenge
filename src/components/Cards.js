@@ -11,7 +11,7 @@ const StyledCard = styled.div`
 	padding: 0px;
 	margin: 0px;
 	height: 100%;
-	max-width: 119px;
+	max-width: 150px;
 	width: calc(100% / 9);
 	border-radius: 20px;
 	&:hover {
@@ -53,6 +53,7 @@ const Cards = (props) => {
 						<img src={`http://image.tmdb.org/t/p/w200/${film.poster_path}`} alt="poster" />
 						<h3>{film.title}</h3>
 						<p>{film.release_date}</p>
+						<p>{film.comments}</p>
 					</StyledCard>
 				)
 			})}
