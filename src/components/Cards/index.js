@@ -74,6 +74,7 @@ const StyledCard = styled.div`
 			.overview {
 				display: block;
 				font-size: 10px;
+				text-align: justify;
 			}
 		}
 		.rating {
@@ -96,7 +97,7 @@ const Cards = (props) => {
 						<div className="info">
 							<h3>{film.title}</h3>
 							<p>{film.release_date}</p>
-							<p className="overview">{film.overview.length > 380 ? `${film.overview.substr(0, 380)} .... [selengkapnya]` : film.overview}</p>
+							<p className="overview">{film.overview.length > 398 ? `${film.overview.substr(0, 398)} .... [selengkapnya]` : film.overview}</p>
 						</div>
 					</StyledCard>
 				)
