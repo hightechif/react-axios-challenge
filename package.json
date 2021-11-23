@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run build:tailwind && react-scripts build",
     "test": "react-scripts test",
     "sass": "sass --watch src/assets/sass/Main.scss:src/assets/css/Main.css",
     "build:tailwind": "tailwind build -i src/assets/css/Tailwind.css -o public/style.css",
