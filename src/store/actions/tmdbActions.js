@@ -1,6 +1,6 @@
-import axios from "axios"
+import axios from "axios";
 
-const API_KEY = process.env.REACT_APP_API_KEY
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 export const example = async () => {
     const service = await axios({
@@ -33,9 +33,9 @@ const getList = async (listID, page) => {
     return service;
 }
 
-const TMDB = {
+const tmdbActions = {
     example,
     getList
 }
 
-export default TMDB;
+export default tmdbActions;

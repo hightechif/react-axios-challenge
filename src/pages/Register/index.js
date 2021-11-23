@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate  } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import authActions from '../../store/actions/authActions';
+import Form from '../../components/Form';
 import styled from 'styled-components';
-import Form from '../components/Form';
-import auth from '../store/actions/auth';
 
 const StyledDiv = styled.div`
     margin-top: 50px;
@@ -24,10 +25,13 @@ const Register = () => {
         "username": "",
         "password": ""
     });
-    const [ isRegisterSuccess, setIsRegisterSuccess ] = useState(true);
+    const [ isRegisterSuccess, setIsRegisterSuccess ] = useState(false);
     const [ isSubmit, setIsSubmit ] = useState(false);
     const [ errorMessage, setErrorMessage ] = useState("");
-    let navigate = useNavigate();
+    const mounted = useRef();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const state = useSelector(state => state);
 
     const handleChange = (event) => {
         const { value, id } = event.target;
@@ -37,31 +41,29 @@ const Register = () => {
     const handleSubmit = async (event, error) => {
         setIsSubmit(true);
         event.preventDefault();
-        try {
-            if (userDTO.username === "" || userDTO.password === "") {
-                setErrorMessage("Username or password can't be empty");
-                throw(error);
-            }
+        if (userDTO.username === "" || userDTO.password === "") {
+            setErrorMessage("Username or password can't be empty");
+        } else {
             setErrorMessage("Username already exist");
-            const postRegister = await auth.register(userDTO.username, userDTO.password);
-            const { data } = postRegister;
-            setIsRegisterSuccess(!!data);
-        } catch (error) {
-            setIsRegisterSuccess(false);
+            dispatch(authActions.register(userDTO.username, userDTO.password))
         }
     }
 
     useEffect(() => {
-        auth.init();
-        
+        if (!mounted.current) {
+            // do componentDidMount
+            dispatch(authActions.init());
+            mounted.current = true;
+        }
         const getToken = window.localStorage.getItem("ACCESS_TOKEN") ?? null;
         if (getToken) {
             navigate("/");
         }
+        state.auth.errorMessage !== "" ? setIsRegisterSuccess(false) : setIsRegisterSuccess(true);
         return () =>{
             // do componentWillUnmount
         }
-    })
+    }, [dispatch, navigate, state])
 
     return (
         <StyledDiv>

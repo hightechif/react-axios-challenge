@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Form from '../components/Form';
+import { useState, useEffect, useRef } from 'react';
 import  { useNavigate } from 'react-router-dom';
-import auth from '../store/actions/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import authActions from '../../store/actions/authActions';
+import Form from '../../components/Form';
+import styled from 'styled-components';
 
 const StyledDiv = styled.div`
     margin-top: 50px;
@@ -23,8 +24,11 @@ const Login = () => {
         "username": "",
         "password": ""
     });
-    const [ isLoginSuccess, setIsLoginSuccess ] = useState(true);
-    let navigate = useNavigate();
+    const [isLoginSuccess, setIsLoginSuccess] = useState(true);
+    const mounted = useRef()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const state = useSelector(state => state);
 
     const handleChange = (event) => {
         const { value, id } = event.target;
@@ -33,28 +37,28 @@ const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        try{
-            const postLogin = await auth.login(userDTO.username, userDTO.password);
-            const { data } = postLogin;
-            localStorage.setItem('ACCESS_TOKEN', data.token);
-            setIsLoginSuccess(true);
-            window.location.reload();
-        } catch(e) {
+        if (userDTO.username === "" || userDTO.password === "") {
             setIsLoginSuccess(false);
+        } else {
+            dispatch(authActions.login(userDTO.username, userDTO.password));
         }
     }
 
     useEffect(() => {
-        auth.init();
-        
+        if (!mounted.current) {
+            // do componentDidMount
+            dispatch(authActions.init());
+            mounted.current = true;
+        }
         const getToken = window.localStorage.getItem("ACCESS_TOKEN") ?? null;
         if (getToken) {
             navigate("/");
         }
+        state.auth.errorMessage !== "" ? setIsLoginSuccess(false) : setIsLoginSuccess(true);
         return () =>{
             // do componentWillUnmount
         }
-    })
+    }, [navigate, dispatch, state])
 
     return (
         <StyledDiv>

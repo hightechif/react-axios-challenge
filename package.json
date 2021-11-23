@@ -14,8 +14,11 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-loader-spinner": "^4.0.0",
     "react-promise-tracker": "^2.1.0",
+    "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.1",
     "react-scripts": "4.0.3",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.0",
     "styled-components": "^5.3.3",
     "tailwindcss": "^2.2.19",
     "web-vitals": "^1.0.1"
@@ -24,8 +27,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "sass": "sass --watch src/styles/sass/Main.scss:src/styles/css/Main.css",
-    "build:tailwind": "tailwind build -i src/styles/css/Tailwind.css -o public/style.css",
+    "sass": "sass --watch src/assets/sass/Main.scss:src/assets/css/Main.css",
+    "build:tailwind": "tailwind build -i src/assets/css/Tailwind.css -o public/style.css",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

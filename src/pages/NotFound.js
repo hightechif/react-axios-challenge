@@ -1,6 +1,6 @@
-import "../App.css";
+import "../assets/css/App.css";
 
-function Notfound(props) {
+const NotFound = () => {
   return (
     <div className="App">
       <header className="App-header">
@@ -10,4 +10,4 @@ function Notfound(props) {
   );
 }
 
-export default Notfound;
+export default NotFound;
