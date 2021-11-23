@@ -1,10 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import store from './store';
+import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
+import IndomaretTheme from './assets/Theme';
+import './assets/css/Main.css';
+require('dotenv').config();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<ThemeProvider theme={IndomaretTheme} >
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</ThemeProvider>
+	</React.StrictMode>,
+	document.getElementById('root')
 );

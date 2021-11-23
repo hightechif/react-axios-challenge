@@ -1,4 +1,4 @@
-import Input from "./Input";
+import Input from "../Input";
 import { Button } from "@elevenia/master-ui/components/Atom";
 
 const Form = (props) => {

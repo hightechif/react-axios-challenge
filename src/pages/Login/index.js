@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import  { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import authActions from '../store/actions/authActions';
-import Form from '../components/Form';
+import authActions from '../../store/actions/authActions';
+import Form from '../../components/Form';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`

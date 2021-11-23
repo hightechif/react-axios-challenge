@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import tmdbActions from "../store/actions/tmdbActions";
-import Cards from "../components/Cards";
+import tmdbActions from "../../store/actions/tmdbActions";
+import Cards from "../../components/Cards";
 import { trackPromise } from 'react-promise-tracker';
 import Loader from 'react-loader-spinner';
 import { Icon } from "@elevenia/master-ui/components/Atom";
@@ -22,6 +22,7 @@ const StyledGallery = styled.div`
         border-radius: 15px;
         justify-content: center;
         padding: 3px 3px;
+        margin-left: calc((100% - 100px)/2);
         p {
             color: #FFFFFF;
             font-size: large;

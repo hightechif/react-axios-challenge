@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import authActions from '../store/actions/authActions';
-import Form from '../components/Form';
+import authActions from '../../store/actions/authActions';
+import Form from '../../components/Form';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`
@@ -25,7 +25,7 @@ const Register = () => {
         "username": "",
         "password": ""
     });
-    const [ isRegisterSuccess, setIsRegisterSuccess ] = useState(true);
+    const [ isRegisterSuccess, setIsRegisterSuccess ] = useState(false);
     const [ isSubmit, setIsSubmit ] = useState(false);
     const [ errorMessage, setErrorMessage ] = useState("");
     const mounted = useRef();
