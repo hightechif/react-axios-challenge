@@ -40,7 +40,7 @@ const StyledCard = styled.div`
 	.rating {
 		background: #222222;
 		color: #EEEEEE;
-		padding: 1px;
+		padding: 1px 3px;
 		border: 2px solid darkgreen;
 		border-radius: 50%;
 		width: 25px;
