@@ -1,41 +1,49 @@
 import axios from "axios";
+import { FETCH_MOVIES, TMDB_FAIL, CHANGE_MOVIES } from "./type";
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 
-export const example = async () => {
-    const service = await axios({
-            method: 'GET',
+const getList = (listID, page) => async (dispatch, prev) => {
+    try {
+        const service = await axios({
+            method: 'get',
             baseURL: 'https://api.themoviedb.org',
-            url: '/3/movie/550',
+            url: `/4/list/${listID}`,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json;charset=utf-8'
             },
             params: {
+                page: page,
                 api_key: API_KEY
             }
         })
-    return service;
+        const { results, total_results } = service.data;
+        let data = [ ...prev().tmdb.items, ...results ]
+        dispatch({
+            type: FETCH_MOVIES,
+            payload: {
+                data,
+                total_results
+            }
+        })
+    } catch (error) {
+        dispatch({
+            type: TMDB_FAIL,
+            payload: "TMDB API Unavailable"
+        })
+    }
 }
 
-const getList = async (listID, page) => {
-    const service = await axios({
-        method: 'get',
-        baseURL: 'https://api.themoviedb.org',
-        url: `/4/list/${listID}`,
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        params: {
-            page: page,
-            api_key: API_KEY
-        }
+const changeList = (data) => async (dispatch) => {
+    dispatch({
+        type: CHANGE_MOVIES,
+        payload: data
     })
-    return service;
 }
 
 const tmdbActions = {
-    example,
-    getList
+    getList,
+    changeList
 }
 
 export default tmdbActions;
