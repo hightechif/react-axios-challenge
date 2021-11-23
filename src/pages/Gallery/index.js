@@ -9,7 +9,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 const StyledGallery = styled.div`
     .TMDB_Logo {
-        margin: 20px auto;
+        margin: 50px auto;
         max-width: 720px;
         min-width: 300px;
         width: 75%;
@@ -30,6 +30,11 @@ const StyledGallery = styled.div`
         }
         button {
             padding-top: 5px;
+        }
+    }
+    @media screen and (max-width: 375px) {
+        .TMDB_Logo {
+            margin: 20px auto;
         }
     }
 `
