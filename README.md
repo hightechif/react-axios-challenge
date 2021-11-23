@@ -27,7 +27,12 @@ Make sure to install Elevenia Master-UI
 npm install @elevenia/master-ui
 ```
 
-**4. Run Application**
+**4. Build Tailwind CSS**
+```
+$ npm run build:tailwind
+```
+
+**5. Run Application**
 
 Run app with:
 
