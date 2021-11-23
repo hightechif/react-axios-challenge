@@ -2,7 +2,7 @@ import Input from "./Input";
 import { Button } from "@elevenia/master-ui/components/Atom";
 
 const Form = (props) => {
-    const {biodata, handleChange, handleSubmit, isRegistered, isLoginSuccess, isRegisterSuccess, isSubmit, errorMessage} = props;
+    const { biodata, handleChange, handleSubmit, isRegistered, isLoginSuccess, isRegisterSuccess, isSubmit, errorMessage } = props;
 
     return (
         <form onSubmit={async (event) => await handleSubmit(event)} className="w-full max-w-lg">

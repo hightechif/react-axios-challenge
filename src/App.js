@@ -1,4 +1,6 @@
 import Router from './router';
+import { Provider } from 'react-redux';
+import store from './store';
 import { ThemeProvider } from 'styled-components'
 import IndomaretTheme from './assets/Theme';
 import './styles/css/Main.css';
@@ -13,7 +15,9 @@ function App() {
   return (
     <ThemeProvider theme={IndomaretTheme} >
       <StyledFont>
-        <Router />
+        <Provider store={store}>
+          <Router />
+        </Provider>
       </StyledFont>
     </ThemeProvider>
   )

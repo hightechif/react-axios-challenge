@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import TMDB from "../store/actions/tmdb";
+import tmdbActions from "../store/actions/tmdbActions";
 import Cards from "../components/Cards";
 import { trackPromise } from 'react-promise-tracker';
 import Loader from 'react-loader-spinner';
@@ -58,7 +58,7 @@ const Gallery = () => {
     const loadData = async (page = 1) => {
         var movieList = data;
         try {
-            const GET_LIST = await trackPromise(TMDB.getList(1, page));
+            const GET_LIST = await trackPromise(tmdbActions.getList(1, page));
             const { results, total_results } = await GET_LIST.data;
             movieList = [ ...movieList, ...results ];
             setData([ ...new Set(movieList) ]);
@@ -95,7 +95,7 @@ const Gallery = () => {
 
     return (
         <StyledGallery>
-            <img class="TMDB_Logo" src="./images/TMDB/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg" alt="TMDB" />
+            <img className="TMDB_Logo" src="./images/TMDB/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg" alt="TMDB" />
             {data.length > 0 && <div className="sort_by_rating">
                 <p>rating</p>
                 <button type="button" onClick={()=>handleSorting(asc)}><Icon name={asc==='asc' ? 'chevron-up' : 'chevron-down' }/></button>
