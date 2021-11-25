@@ -42,7 +42,7 @@ $ npm run start
 
 &nbsp;
 
-REact App listening in port 3000 (open http://localhost:3000)
+React App listening in port 3000 (open http://localhost:3000)
 
 &nbsp;
 
