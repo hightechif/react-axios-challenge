@@ -9,7 +9,7 @@ yarn.lock
 public/style.css
 
 # variables
-.env
+# .env
 
 # testing
 /coverage
