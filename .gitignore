@@ -10,6 +10,7 @@ public/style.css
 
 # variables
 # .env
+# .npmrc
 
 # testing
 /coverage
