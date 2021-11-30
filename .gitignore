@@ -2,21 +2,23 @@
 
 # dependencies
 /node_modules
-package-lock.json
-yarn.lock
 /.pnp
 .pnp.js
-public/style.css
+package-lock.json
+yarn.lock
+# /public/style.css
 # .npmrc
 
 # variables
-# .env
+.env
 
 # testing
 /coverage
 
 # production
 /build
+Procfile
+server.js
 
 # misc
 .DS_Store
@@ -24,7 +26,14 @@ public/style.css
 .env.development.local
 .env.test.local
 .env.production.local
+.project
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+bitbucket-pipelines.yml
+default-staging.conf
+Dockerfile
+.dockerignore
+.github

@@ -2,6 +2,10 @@
   "name": "react-axios-challenge",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "16.13.0",
+    "npm": "8.1.4"
+  },
   "dependencies": {
     "@elevenia/master-ui": "^2.6.5",
     "@testing-library/jest-dom": "^5.11.4",
