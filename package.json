@@ -24,12 +24,11 @@
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.0",
     "styled-components": "^5.3.3",
-    "tailwindcss": "^2.2.19",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run build:tailwind && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "sass": "sass --watch src/assets/sass/Main.scss:src/assets/css/Main.css",
     "build:tailwind": "tailwind build -i src/assets/css/Tailwind.css -o public/style.css",
@@ -52,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^2.2.19"
   }
 }
