@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import IndomaretTheme from './assets/Theme';
 import './assets/css/Main.css';
+import './assets/css/Tailwind.css';
 require('dotenv').config();
 
 ReactDOM.render(

@@ -7,12 +7,14 @@
     "npm": "8.1.4"
   },
   "dependencies": {
+    "@craco/craco": "^6.4.3",
     "@elevenia/master-ui": "^2.6.5",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.24.0",
     "dotenv": "^10.0.0",
+    "env-cmd": "^10.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-infinite-scroll-component": "^6.1.0",
@@ -27,11 +29,11 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "sass": "sass --watch src/assets/sass/Main.scss:src/assets/css/Main.css",
-    "build:tailwind": "tailwind build -i src/assets/css/Tailwind.css -o public/style.css",
+    "build:tailwind": "tailwind build -i src/assets/css/Tailwind.css -o src/assets/css/TailwindBuild.css",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -53,6 +55,8 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^2.2.19"
+    "autoprefixer": "^9.8.8",
+    "postcss": "^7.0.39",
+    "tailwindcss": "^1.9.6"
   }
 }

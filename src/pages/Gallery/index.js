@@ -109,7 +109,8 @@ const Gallery = () => {
                 // below props only if you need pull down functionality
                 refreshFunction={() => {
                     dispatch(tmdbActions.changeList([]));
-                    setPage(2);
+                    setPage(1);
+                    loadData();
                 }}
                 pullDownToRefresh
                 pullDownToRefreshThreshold={50}

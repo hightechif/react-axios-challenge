@@ -5,12 +5,10 @@ import Home from "./pages/Home";
 import RouteConfig from './config/RouteConfig';
 
 function App() {
-	const loading = () => (<></>)
-	
+	const loading = () => <span>Loading...</span>
 	return (
 		<BrowserRouter>
 			<Navbar />
-			<Suspense fallback={loading()}>
 				<Routes>
 					{RouteConfig.public.map((route, idx) => {
 						return route.element ? (
@@ -18,13 +16,16 @@ function App() {
 							key={idx}
 							path={route.path}
 							name={route.name}
-							element={route.element}
+							element={
+								<Suspense fallback={loading()}>
+									<route.element />
+								</Suspense>
+							}
 							/>
 							) : null
 						})}
 					<Route path="/" element={<Home/>} />
 				</Routes>
-			</Suspense>
 		</BrowserRouter>
 	)
 }
