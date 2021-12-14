@@ -93,7 +93,7 @@ const Cards = (props) => {
 				return (
 					<StyledCard key={idx}>
 						<div className="rating">{`${film.vote_average}`.length === 1 ? `${film.vote_average}.0` : `${film.vote_average}`}</div>
-						<img src={`http://image.tmdb.org/t/p/w200/${film.poster_path}`} alt="poster" />
+						<img src={`https://image.tmdb.org/t/p/w200/${film.poster_path}`} alt="poster" />
 						<div className="info">
 							<h3>{film.title}</h3>
 							<p>{film.release_date}</p>
